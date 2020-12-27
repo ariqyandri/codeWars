@@ -48,3 +48,12 @@ export function duplicateEncode(word: string) {
     })
     .join("");
 }
+
+//7kyu Sum of the first nth term of Series
+export function SeriesSum(n: number): string {
+  let total = 0;
+  for (let i = 0; i < n; i++) {
+    total = total + 1 / (1 + 3 * i); //total+=(1/(1+(3*i)))
+  }
+  return total.toFixed(2);
+}

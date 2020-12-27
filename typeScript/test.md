@@ -194,7 +194,7 @@ const generateWord = () => Array.apply(null, new Array(~~(Math.random() \* 11)))
 });
 });
 
-//4 
+//4
 // See https://www.chaijs.com for how to use Chai.
 import { assert } from "chai";
 
@@ -202,49 +202,98 @@ import { duplicateEncode } from "./solution";
 
 // TODO Add your tests here
 describe("Duplicate Encoder", function() {
-  it("Basic tests:", function() {
-    assert.strictEqual(duplicateEncode("din"),"(((");
-    assert.strictEqual(duplicateEncode("recede"),"()()()");
-    assert.strictEqual(duplicateEncode("Success"),")())())","should ignore case");
-    assert.strictEqual(duplicateEncode("CodeWarrior"),"()(((())())");
-    assert.strictEqual(duplicateEncode("Supralapsarian"),")()))()))))()(","should ignore case");
-    assert.strictEqual(duplicateEncode("iiiiii"),"))))))","duplicate-only-string")
-  });
-  
-  it("Tests with '(' and ')'", function() {
-    assert.strictEqual(duplicateEncode("(( @"),"))((");
-    assert.strictEqual(duplicateEncode(" ( ( )"),")))))(")
-  })
-  
-  it("And now... some random tests !", function() {
-    var rndEncode = function(){
-    var chars = "abcdeFGHIJklmnOPQRSTuvwxyz() @!".split('').sort(function(){return (Math.random()>.5)? 1:-1}).join('');
-    var enc = "", src = "", count = 0, len = 10+~~(Math.random()*10), dup = chars[chars.length-1];
-    for(var c=0; c<len; c++){
-      if(Math.random()>.5){
-        enc += "(";
-        src += chars[c];
-      }else{
-        enc += ")";
-        src += dup;
-        count++;
-      }
-    }
-    // Chrono79's intent to fix the random quirk    
-    // It happened because the duplicate char was inserted only once so it wasn't a duplicate at all.    
-    // So I add it once more to fix it
-    if (count === 1) {
-      enc += ")";
-      src += dup;
-    }  
-    return {src:src, res:enc}
-  }
-  
-  var t = 5;
-  while(t--){
-    var tst = rndEncode();
-    assert.strictEqual(duplicateEncode(tst.src),tst.res,"should encode '"+tst.src+"'")
-  }
-  })
+it("Basic tests:", function() {
+assert.strictEqual(duplicateEncode("din"),"(((");
+assert.strictEqual(duplicateEncode("recede"),"()()()");
+assert.strictEqual(duplicateEncode("Success"),")())())","should ignore case");
+assert.strictEqual(duplicateEncode("CodeWarrior"),"()(((())())");
+assert.strictEqual(duplicateEncode("Supralapsarian"),")()))()))))()(","should ignore case");
+assert.strictEqual(duplicateEncode("iiiiii"),"))))))","duplicate-only-string")
 });
 
+it("Tests with '(' and ')'", function() {
+assert.strictEqual(duplicateEncode("(( @"),"))((");
+assert.strictEqual(duplicateEncode(" ( ( )"),")))))(")
+})
+
+it("And now... some random tests !", function() {
+var rndEncode = function(){
+var chars = "abcdeFGHIJklmnOPQRSTuvwxyz() @!".split('').sort(function(){return (Math.random()>.5)? 1:-1}).join('');
+var enc = "", src = "", count = 0, len = 10+~~(Math.random()\*10), dup = chars[chars.length-1];
+for(var c=0; c<len; c++){
+if(Math.random()>.5){
+enc += "(";
+src += chars[c];
+}else{
+enc += ")";
+src += dup;
+count++;
+}
+}
+// Chrono79's intent to fix the random quirk  
+ // It happened because the duplicate char was inserted only once so it wasn't a duplicate at all.  
+ // So I add it once more to fix it
+if (count === 1) {
+enc += ")";
+src += dup;
+}  
+ return {src:src, res:enc}
+}
+
+var t = 5;
+while(t--){
+var tst = rndEncode();
+assert.strictEqual(duplicateEncode(tst.src),tst.res,"should encode '"+tst.src+"'")
+}
+})
+});
+
+//5
+/// <reference path="/runner/typings/mocha/index.d.ts" />
+/// <reference path="/runner/typings/chai/index.d.ts" />
+import solution = require('./solution');
+
+import {assert} from "chai";
+
+describe("solution", function(){
+it("Basic Tests", function() {
+assert.equal(solution.SeriesSum(1), "1.00");
+assert.equal(solution.SeriesSum(2), "1.25");
+assert.equal(solution.SeriesSum(3), "1.39");
+assert.equal(solution.SeriesSum(4), "1.49");
+assert.equal(solution.SeriesSum(5), "1.57")
+assert.equal(solution.SeriesSum(6), "1.63")
+assert.equal(solution.SeriesSum(7), "1.68")
+assert.equal(solution.SeriesSum(8), "1.73")
+assert.equal(solution.SeriesSum(9), "1.77")
+assert.equal(solution.SeriesSum(15), "1.94")
+assert.equal(solution.SeriesSum(39), "2.26")
+assert.equal(solution.SeriesSum(58), "2.40")
+assert.equal(solution.SeriesSum(0), "0.00")
+});
+
+it("Random Tests", function() {
+function randInt(min, max) {
+return Math.floor(min + Math.random() \* max);
+}
+
+    function SSSolution(n)
+    {
+      var dn = 1 + (n-1)*3;
+      var sum=0;
+      var term;
+      for( var i=1; i<=dn; i+=3)
+      {
+        term = 1/i;
+        sum+=term;
+      }
+      return sum.toFixed(2);
+    }
+
+    for(var i = 0; i < 37; i++) {
+      var n = randInt(0,250);
+      assert.equal(solution.SeriesSum(n), SSSolution(n));
+    }
+
+});
+});
