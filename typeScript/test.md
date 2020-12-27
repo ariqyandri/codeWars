@@ -297,3 +297,43 @@ return Math.floor(min + Math.random() \* max);
 
 });
 });
+
+//6
+/// <reference path="/runner/typings/main/ambient/mocha/index.d.ts" />
+/// <reference path="/runner/typings/main/ambient/chai/index.d.ts" />
+import solution = require('./solution');
+import {assert} from "chai";
+
+function test(string, expected) {
+  assert.strictEqual(solution.Challenge.getMiddle(string), expected)
+}
+
+function _getMiddle(s) {
+  var half = s.length/2;
+  return s.length % 2 === 0 ? s.slice(half-1,half+1) : s[Math.floor(half)]
+}
+
+describe("solution", function(){
+  it("should handle basic tests", function() {
+    test("test", "es");
+    test("testing", "t");
+    test("middle", "dd");
+    test("A", "A");
+  });
+  it("should handle bigger tests", function() {
+    test("aaaaaaaaaaaeeeeeeeeeeeeyyyyyyyyyyyyyuu", "ee");
+    test("aaaaaaaaaaafffeeeeeeeeeeeeg", "f");
+    test("45321096", "21");
+    test("NiceToMeetYou", "M");
+  });
+  it("should handle random tests", function() {
+    for(var x = 0; x < 10; x++) {
+      var length = Math.floor(Math.random() * 20);
+      var str = "";
+      for(var i = 0; i < length; i++) {
+        str += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+      }
+      test(str, _getMiddle(str));
+    }
+  });
+});

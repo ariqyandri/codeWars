@@ -57,3 +57,14 @@ export function SeriesSum(n: number): string {
   }
   return total.toFixed(2);
 }
+
+//7kyu Get the Middle Character
+export class Challenge {
+  static getMiddle(s: string) {
+    let even = s.length / 2;
+    let odd = s.length / 2 + 1 / 2;
+    return s.length % 2 === 0
+      ? s.slice(even - 1, even + 1) //s.substr(even,2)
+      : s.slice(odd - 1, odd); //s.substr(odd,1)
+  }
+}
