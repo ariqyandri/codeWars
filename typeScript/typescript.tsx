@@ -17,3 +17,13 @@ export class G964 {
     return a1.filter((a1s) => a2.some((a2s) => a2s.search(a1s) >= 0)).sort();
   }
 }
+
+//6kyu Stop gninnipS My sdroW!
+export class Kata {
+  static spinWords(words: string) {
+  return words.split(" ").map((w) => {
+    if (w.length >= 5) {
+      return w.split("").reverse().join("");
+    }
+    return w;}).join(" ")  }
+}
