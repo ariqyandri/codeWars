@@ -21,9 +21,30 @@ export class G964 {
 //6kyu Stop gninnipS My sdroW!
 export class Kata {
   static spinWords(words: string) {
-  return words.split(" ").map((w) => {
-    if (w.length >= 5) {
-      return w.split("").reverse().join("");
-    }
-    return w;}).join(" ")  }
+    return words
+      .split(" ")
+      .map((w) => {
+        if (w.length >= 5) {
+          return w.split("").reverse().join("");
+        }
+        return w;
+      })
+      .join(" ");
+  }
+}
+
+//6kyu Duplicate Encoder
+export function duplicateEncode(word: string) {
+  return word
+    .split("")
+    .map((l) => {
+      if (
+        word.split("").filter((b) => b.toLowerCase() === l.toLowerCase())
+          .length > 1
+      ) {
+        return ")";
+      }
+      return "(";
+    })
+    .join("");
 }
